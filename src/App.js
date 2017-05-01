@@ -16,13 +16,33 @@ class App extends Component {
     this.setState(this.state)
   }
 
+  deleteIdea(id) {
+    const newIdeasArray = this.state.ideas.filter((idea) => {
+      return idea.id !== id
+    })
+
+    this.setState({ ideas: newIdeasArray })
+  }
+
+  editIdea(idea) {
+    const woot = this.state.ideas.map((i) => {
+      if (i.id === idea.id) {
+        return idea
+      }
+      return i
+    })
+    console.log(woot, this);
+    this.setState({ ideas: woot })
+
+  }
+
   render() {
     return (
       <div className="App">
         <h1>We should create an idea!</h1>
-        <CreateIdea handleSubmit={this.addIdea.bind(this)} />
+        <CreateIdea handleSubmit={ this.addIdea.bind(this) } />
         <br />
-        <Ideas ideas={this.state.ideas}/>
+        <Ideas handleSubmit={ this.editIdea.bind(this) } handleDelete={ this.deleteIdea.bind(this) } ideas={ this.state.ideas }/>
       </div>
     );
   }

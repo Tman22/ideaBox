@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
+import CreateIdea from './CreateIdea';
 
-export const Ideas = ({ ideas }) => {
+export const Ideas = ({ ideas, handleDelete, handleSubmit }) => {
+  const ideasArray = ideas.map((idea) => <Idea key={ idea.id } { ...idea } handleDelete={ handleDelete } handleSubmit={ handleSubmit } />)
 
-  const ideasArray = ideas.map((idea) => <Idea key={ idea.id } { ...idea } />)
-  console.log(ideasArray)
-  
   return (
     <div>
       {ideasArray}
@@ -12,14 +11,37 @@ export const Ideas = ({ ideas }) => {
   )
 }
 
-const Idea = ({ title, body, id }) => {
+class Idea extends Component {
+  constructor() {
+    super()
+    this.state = {
+      edit: false
+    }
+  }
 
-  return (
-    <div>
-      { title }
-      <br />
-      { body }
-      <br />
-    </div>
-  )
+  handleShit(idea) {
+    this.props.handleSubmit(Object.assign({}, idea, { id: this.props.id }  ))
+    this.setState({ edit: false })
+  }
+
+  render() {
+    console.log('iweiwi');
+    const { id, title, body, handleDelete } = this.props
+
+    if (this.state.edit) {
+      return <CreateIdea title={title} body={body} handleSubmit={(idea) => this.handleShit(idea) } />
+    }
+
+    return (
+      <div>
+        { title }
+        <br />
+        { body }
+        <br />
+        <button onClick={() => handleDelete(id) } >Delete</button>
+        <button onClick={() => this.setState({ edit: true }) } >Edit</button>
+
+      </div>
+    )
+  }
 }

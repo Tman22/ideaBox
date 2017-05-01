@@ -7,12 +7,19 @@ export default class CreateIdea extends Component {
 
   // 'constructor' is a es6 nicety. This is common in programming.
   // in Ruby, it is 'initialize'
-  constructor(){
+  constructor() {
     super()
     this.state = {
       title: '',
       body: '',
     }
+  }
+
+  componentDidMount() {
+    if(this.props.title) {
+      this.setState({ title: this.props.title, body: this.props.body })
+    }
+
   }
 
   inputChange(e, field){
