@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import CreateIdea from './CreateIdea';
+import IdeaForm from './IdeaForm';
 import { Ideas } from './Ideas';
 
 class App extends Component {
@@ -31,16 +31,15 @@ class App extends Component {
       }
       return i
     })
-    console.log(woot, this);
+    console.log(woot);
     this.setState({ ideas: woot })
-
   }
 
   render() {
     return (
       <div className="App">
         <h1>We should create an idea!</h1>
-        <CreateIdea handleSubmit={ this.addIdea.bind(this) } />
+        <IdeaForm handleSubmit={ this.addIdea.bind(this) } />
         <br />
         <Ideas handleSubmit={ this.editIdea.bind(this) } handleDelete={ this.deleteIdea.bind(this) } ideas={ this.state.ideas }/>
       </div>

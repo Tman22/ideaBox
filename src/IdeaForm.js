@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 // I know that I'm going to have an input field
 // therefor this needs to be stateful
 
-export default class CreateIdea extends Component {
+export default class IdeaForm extends Component {
 
   // 'constructor' is a es6 nicety. This is common in programming.
   // in Ruby, it is 'initialize'
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      title: '',
-      body: '',
+      title: this.props.title || '',
+      body: this.props.body || '',
     }
   }
 
-  componentDidMount() {
-    if(this.props.title) {
-      this.setState({ title: this.props.title, body: this.props.body })
-    }
-
-  }
+  // componentWillMount() {
+  //   if(this.props.title) {
+  //     this.setState({ title: this.props.title, body: this.props.body })
+  //   }
+  // }
 
   inputChange(e, field){
     // more on controlled components: https://facebook.github.io/react/docs/forms.html
@@ -37,6 +37,7 @@ export default class CreateIdea extends Component {
   }
 
   render() {
+    console.log('WHY');
     return (
       <div>
         <label>Title</label>
@@ -51,4 +52,9 @@ export default class CreateIdea extends Component {
       </div>
     )
   }
+}
+
+IdeaForm.propTypes = {
+  title: PropTypes.string,
+  body: PropTypes.string
 }
