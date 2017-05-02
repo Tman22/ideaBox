@@ -19,17 +19,21 @@ class Idea extends Component {
     }
   }
 
-  handleShit(idea) {
+  componentWillReceiveProps() {
+    this.setState({ edit: false })
+  }
+
+  handleClick(idea) {
     this.props.handleSubmit(Object.assign({}, idea, { id: this.props.id }  ))
     this.setState({ edit: false })
   }
 
   render() {
-    console.log('iweiwi');
-    const { id, title, body, handleDelete } = this.props
+    const { id, title, body, handleDelete, handleSubmit } = this.props
 
     if (this.state.edit) {
-      return <CreateIdea title={title} body={body} handleSubmit={(idea) => this.handleShit(idea) } />
+      // return <CreateIdea title={title} body={body} handleSubmit={(idea) => handleSubmit(Object.assign({}, idea, {id: id }))} />
+      return <CreateIdea title={title} body={body} handleSubmit={(idea) => this.handleClick(idea)} />
     }
 
     return (
@@ -40,7 +44,6 @@ class Idea extends Component {
         <br />
         <button onClick={() => handleDelete(id) } >Delete</button>
         <button onClick={() => this.setState({ edit: true }) } >Edit</button>
-
       </div>
     )
   }
